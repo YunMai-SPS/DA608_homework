@@ -3,11 +3,11 @@ ui <- fluidPage(
   sidebarPanel(
     selectInput(inputId = "disease",
                 label = "Choose disease", 
-                choices = unique(df$ICD.Chapter),
+                choices = unique(cmr$ICD.Chapter),
                 selected = "Neoplasms"),
     selectInput(inputId = "year",
                 label = "Choose year", 
-                choices = unique(df$Year),
+                choices = unique(cmr$Year),
                 selected = 1999)
   ),
   mainPanel(
