@@ -6,10 +6,10 @@ ui <- fluidPage(
                        choices = 'NATIONAL'),
     checkboxGroupInput(inputId = "state",
                        label = "Choose state",
-                       choices =as.character(unique(df$State))),
+                       choices =as.character(unique(cmr$State))),
     checkboxGroupInput(inputId = "disease",
                        label = "Choose disease", 
-                       choices = as.character(unique(df$ICD.Chapter)))
+                       choices = as.character(unique(cmr$ICD.Chapter)))
   ),
   mainPanel(
     plotOutput("line")
