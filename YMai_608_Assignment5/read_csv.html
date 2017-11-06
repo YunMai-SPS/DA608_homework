@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px black solid;
+                font: 12px sans-serif;
+            }
+
+            td {
+                border: 1px black solid;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
+
+        <script type="text/javascript"charset="utf-8">
+            function showtable(data,columns) {
+                var table = d3.select('body').append('table')
+                var thead = table.append('thead')
+                var tbody = table.append('tbody')
+
+                thead.append('tr')
+                .selectAll('th')
+                  .data(columns)
+                  .enter()
+                .append('th')
+                  .text(function (d) { return d })
+
+                var rows = tbody.selectAll('tr')
+                  .data(data)
+                  .enter()
+                .append('tr')
+
+                var cells = rows.selectAll('td')
+                  .data(function(row) {
+                    return columns.map(function (column) {
+                      return { column: column, value: row[column] }
+                    })
+                  })
+                  .enter()
+                .append('td')
+                  .text(function (d) { return d.value })
+
+                return table;
+                }
+
+            d3.csv('president.csv',function (data) {
+            var columns = ['Name','Height','Weight']
+            showtable(data,columns)
+            })
+        </script>
+
+
+        <script type="text/javascript">
+
+        document.write('<p><b> Please type the name of the president.</b></p>');
+
+        </script>
+
+        <p>
+        <form>
+            <input id="str" type="string" size="4">
+            <input type="button" value="Show weight and height" onClick="createTable();">
+        </form>
+        </p>
+
+        <div id="target"></div>
+
+             
+
+        <script type="text/javascript"charset="utf-8">
+               function filterCriteria(data,pname) {
+                 return data['Name'] == pname;
+               }
+
+               function display(){
+                   var t = document.getElementById("target");
+                   t.innerHTML = filterCriteria(data,pname);
+               }
+
+               d3.csv('president.csv',function (data) {
+               var pname = document.getElementById('str').value;
+               filterCriteria(data,pname)
+               display()
+               })
+
+               function createTable() {
+                 var arr_tb = multiples(document.getElementById('num').value);
+                	var choosename = data.filter(function(row){
+                  		return row['Name'] == document.getElementById('str').value;
+              	});
+
+                	d3.csv('president.csv',function (data) {
+                		choosename(data)
+                	})
+
+                  var tb = document.getElementById('target');
+                  // create table element
+                  var table = document.createElement('table');
+                  var tbody = document.createElement('tbody');
+                  // create table row
+                  var row = document.createElement('tr');
+              // put value in each cell of the row
+                  for (j=0; j < 3; j++){
+                    // get value from array
+                    var ind = j;
+                    var val = arr_tb[ind];
+                    // create td element
+                    var cell = document.createElement('td');
+                    // set text
+                    cell.textContent = val;
+                    // append td to tr
+                    row.appendChild(cell);
+                  }
+                  //append tr to tbody
+                  tbody.appendChild(row);
+                }
+                // append tbody to table
+                table.appendChild(tbody);
+               // append table to container
+               container.appendChild(table);
+              }
+
+          </script>
+
+
+
+    </body>
+</html>

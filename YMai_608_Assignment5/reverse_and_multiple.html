@@ -1,0 +1,120 @@
+<html>
+
+<head>
+<title>Intro to JS in a Browser</title>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+</head>
+
+<body>
+
+<h1>DA608_Assignment5</h1>
+<h2>Author: Yun Mai</h2>
+
+<!-- function to reverse input word -->
+<script type="text/javascript">
+
+document.write('<p><b>1. Create a function to reverse any word that you type in. This can be typed into either an input box or an alert box, and then print the result in a box or on the webpage.</b></p>');
+
+</script>
+
+<script type="text/javascript">
+
+function reverseString(str) {
+  // split the string and form an array in order to use arrary reverse function
+  var split_str = str.split("");
+  // reverse array
+  var rev_ar = split_str.reverse();
+  // join the elements in the reversed array
+  var join_ar = rev_ar.join("");
+  // return the reversed string
+  var rev_str;
+  rev_str = ' If we reverse ' + '\"'+ str + '\"' + ' , we get: ' + '\"'+ join_ar + '\".';
+  return rev_str;
+}
+
+function rev(){
+    var t = document.getElementById("target");
+    t.innerHTML = reverseString(document.getElementById('str').value);
+}
+
+</script>
+
+<p>
+<form>
+    <input id="str" type="string" size="4">
+    <input type="button" value="reverse the word" onClick="rev();">
+</form>
+</p>
+
+<div id="target"></div>
+
+<!-- function to calculate the multiples of input number -->
+<script type="text/javascript">
+
+document.write('<p><b> 2. Create a function that takes an input number, and prints a table with the first 20 multiples of the number, in order 5x4</b></p>');
+
+</script>
+
+<script type="text/javascript">
+function multiples(num) {
+  // set varaible for multiples and an array
+  var mul = 0;
+  var arr = [];
+  //  loop to generate the first 20 multiples of input number
+  for (i = 1; i < 21; i++) {
+    mul = num*i;
+    arr.push(mul);
+  }
+  return arr;
+}
+
+
+function createTable() {
+  var arr_tb = multiples(document.getElementById('num').value);
+  var tb = document.getElementById('container');
+  // create table element
+  var table = document.createElement('table');
+  var tbody = document.createElement('tbody');
+  // loop array
+  for (i=0; i < 5; i++){
+    // create table row
+    var row = document.createElement('tr');
+    // put value in each cell of the row
+    for (j=0; j < 4; j++){
+      // get value from array
+      var ind = j+i*4;
+      var val = arr_tb[ind];
+      // create td element
+      var cell = document.createElement('td');
+      // set text
+      cell.textContent = val;
+      // append td to tr
+      row.appendChild(cell);
+    }
+    //append tr to tbody
+    tbody.appendChild(row);
+  }
+  // append tbody to table
+  table.appendChild(tbody);
+ // append table to container
+ container.appendChild(table);
+}
+
+</script>
+
+<p>
+<form>
+    <input id="num" type="number" size="4">
+    <input type="button" value="calculate multiples" onClick="createTable();">
+</form>
+</p>
+
+<div id="container"></div>
+
+</body>
+</html>
